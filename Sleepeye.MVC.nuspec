@@ -2,16 +2,19 @@
 <package >
   <metadata>
     <id>Sleepeye.MVC</id>
-    <version>1.0.0.1</version>
+    <version>1.0.0.2</version>
     <title>Sleepeye.MVC</title>
     <authors>Sleepeye</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <!-- <icon>icon.png</icon>  -->
+    <icon>sleep.png</icon>  
     <projectUrl>https://github.com/pk115/Sleepeye.MVC</projectUrl>
     <description>Base Lib MVC</description>
     <releaseNotes>Log file nad encript text</releaseNotes> 
     <copyright>Copyright ©  2022</copyright>
     <tags>Sleepeye.MVC </tags>
   </metadata>
+  <files>
+    <file src="sleep.png" target="" />
+  </files>
 </package>
