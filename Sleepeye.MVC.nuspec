@@ -7,8 +7,8 @@
     <authors>Sleepeye</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <!-- <icon>icon.png</icon> 
-    <projectUrl>http://project_url_here_or_delete_this_line/</projectUrl> -->
+    <!-- <icon>icon.png</icon>  -->
+    <projectUrl>https://github.com/pk115/Sleepeye.MVC</projectUrl>
     <description>Base Lib MVC</description>
     <releaseNotes>Log file nad encript text</releaseNotes> 
     <copyright>Copyright ©  2022</copyright>
