@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Sleepeye.MVC</id>
+    <version>1.0.0.1</version>
+    <title>Sleepeye.MVC</title>
+    <authors>Sleepeye</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!-- <icon>icon.png</icon> 
+    <projectUrl>http://project_url_here_or_delete_this_line/</projectUrl> -->
+    <description>Base Lib MVC</description>
+    <releaseNotes>Log file nad encript text</releaseNotes> 
+    <copyright>Copyright ©  2022</copyright>
+    <tags>Sleepeye.MVC </tags>
+  </metadata>
+</package>

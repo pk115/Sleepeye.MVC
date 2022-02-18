@@ -1,0 +1,6 @@
+D:\Dev\Sleepeye.MVC\Sleepeye.MVC\bin\Debug\Sleepeye.MVC.dll
+D:\Dev\Sleepeye.MVC\Sleepeye.MVC\bin\Debug\Sleepeye.MVC.pdb
+D:\Dev\Sleepeye.MVC\Sleepeye.MVC\obj\Debug\Sleepeye.MVC.csproj.AssemblyReference.cache
+D:\Dev\Sleepeye.MVC\Sleepeye.MVC\obj\Debug\Sleepeye.MVC.csproj.CoreCompileInputs.cache
+D:\Dev\Sleepeye.MVC\Sleepeye.MVC\obj\Debug\Sleepeye.MVC.dll
+D:\Dev\Sleepeye.MVC\Sleepeye.MVC\obj\Debug\Sleepeye.MVC.pdb
