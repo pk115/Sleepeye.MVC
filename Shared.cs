@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -152,6 +154,294 @@ namespace Sleepeye.MVC
         //        var Bytes = binaryReader.ReadBytes(Files.ContentLength);
         //    }
         //}
+
+        public static string ThaiBahtText(string strNumber, bool IsTrillion = false)
+        {
+            string BahtText = "";
+            string strTrillion = "";
+            string[] strThaiNumber = { "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า", "สิบ" };
+            string[] strThaiPos = { "", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน" };
+
+            decimal decNumber = 0;
+            decimal.TryParse(strNumber, out decNumber);
+
+            if (decNumber == 0)
+            {
+                return "ศูนย์บาทถ้วน";
+            }
+
+            strNumber = decNumber.ToString("0.00");
+            string strInteger = strNumber.Split('.')[0];
+            string strSatang = strNumber.Split('.')[1];
+
+            if (strInteger.Length > 13)
+                throw new Exception("รองรับตัวเลขได้เพียง ล้านล้าน เท่านั้น!");
+
+            bool _IsTrillion = strInteger.Length > 7;
+            if (_IsTrillion)
+            {
+                strTrillion = strInteger.Substring(0, strInteger.Length - 6);
+                BahtText = ThaiBahtText(strTrillion, _IsTrillion);
+                strInteger = strInteger.Substring(strTrillion.Length);
+            }
+
+            int strLength = strInteger.Length;
+            for (int i = 0; i < strInteger.Length; i++)
+            {
+                string number = strInteger.Substring(i, 1);
+                if (number != "0")
+                {
+                    if (i == strLength - 1 && number == "1" && strLength != 1)
+                    {
+                        BahtText += "เอ็ด";
+                    }
+                    else if (i == strLength - 2 && number == "2" && strLength != 1)
+                    {
+                        BahtText += "ยี่";
+                    }
+                    else if (i != strLength - 2 || number != "1")
+                    {
+                        BahtText += strThaiNumber[int.Parse(number)];
+                    }
+
+                    BahtText += strThaiPos[(strLength - i) - 1];
+                }
+            }
+
+            if (IsTrillion)
+            {
+                return BahtText + "ล้าน";
+            }
+
+            if (strInteger != "0")
+            {
+                BahtText += "บาท";
+            }
+
+            if (strSatang == "00")
+            {
+                BahtText += "ถ้วน";
+            }
+            else
+            {
+                strLength = strSatang.Length;
+                for (int i = 0; i < strSatang.Length; i++)
+                {
+                    string number = strSatang.Substring(i, 1);
+                    if (number != "0")
+                    {
+                        if (i == strLength - 1 && number == "1" && strSatang[0].ToString() != "0")
+                        {
+                            BahtText += "เอ็ด";
+                        }
+                        else if (i == strLength - 2 && number == "2" && strSatang[0].ToString() != "0")
+                        {
+                            BahtText += "ยี่";
+                        }
+                        else if (i != strLength - 2 || number != "1")
+                        {
+                            BahtText += strThaiNumber[int.Parse(number)];
+                        }
+
+                        BahtText += strThaiPos[(strLength - i) - 1];
+                    }
+                }
+
+                BahtText += "สตางค์";
+            }
+
+            return BahtText;
+        }
+
+        public static string NumberThaiBaht(string strNumber)
+        {
+            string BahtText = "";
+            string strTrillion = "";
+            string[] strThaiNumber = { "๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙" };
+
+
+            decimal decNumber = 0;
+            decimal.TryParse(strNumber, out decNumber);
+
+
+
+            strNumber = decNumber.ToString("0.00");
+            string strInteger = strNumber.Split('.')[0];
+            string strSatang = strNumber.Split('.')[1];
+
+            if (strInteger.Length > 13)
+                throw new Exception("รองรับตัวเลขได้เพียง ล้านล้าน เท่านั้น!");
+
+            //bool _IsTrillion = strInteger.Length > 7;
+            //if (_IsTrillion)
+            //{
+            //    strTrillion = strInteger.Substring(0, strInteger.Length - 6);
+            //    BahtText = NumberThaiBaht(strTrillion, _IsTrillion);
+            //    strInteger = strInteger.Substring(strTrillion.Length);
+            //}
+
+            int strLength = strInteger.Length;
+            for (int i = 0; i < strInteger.Length; i++)
+            {
+                string number = strInteger.Substring(i, 1);
+                //if (number != "0")
+                //{
+                //if (i == strLength - 1 && number == "1" && strLength != 1)
+                //{
+                //    BahtText += "เอ็ด";
+                //}
+                //else if (i == strLength - 2 && number == "2" && strLength != 1)
+                //{
+                //    BahtText += "ยี่";
+                //}
+                //else if (i != strLength - 2 || number != "1")
+                //{
+                BahtText += strThaiNumber[int.Parse(number)];
+                //}
+
+
+                //}
+            }
+
+            //if (IsTrillion)
+            //{
+            //    return BahtText + "ล้าน";
+            //}
+
+            if (strInteger != "0")
+            {
+                //BahtText += "บาท";
+            }
+
+            if (strSatang == "00")
+            {
+                //BahtText += "ถ้วน";
+            }
+            else
+            {
+                BahtText += ".";
+                strLength = strSatang.Length;
+                for (int i = 0; i < strSatang.Length; i++)
+                {
+                    string number = strSatang.Substring(i, 1);
+                    //if (number != "0")
+                    //{
+                    //if (i == strLength - 1 && number == "1" && strSatang[0].ToString() != "0")
+                    //{
+                    //    BahtText += "เอ็ด";
+                    //}
+                    //else if (i == strLength - 2 && number == "2" && strSatang[0].ToString() != "0")
+                    //{
+                    //    BahtText += "ยี่";
+                    //}
+                    //else if (i != strLength - 2 || number != "1")
+                    //{
+                    BahtText += strThaiNumber[int.Parse(number)];
+                    //}
+
+                    //}
+                }
+
+
+            }
+
+            return BahtText;
+        }
+
+        private static string[] SqlServerTypes = { "bigint", "binary", "bit", "char", "date", "datetime", "datetime2", "datetimeoffset", "decimal", "filestream", "float", "geography", "geometry", "hierarchyid", "image", "int", "money", "nchar", "ntext", "numeric", "nvarchar", "real", "rowversion", "smalldatetime", "smallint", "smallmoney", "sql_variant", "text", "time", "timestamp", "tinyint", "uniqueidentifier", "varbinary", "varchar", "xml" };
+        //private static Type[] CSharpTypes = { typeof(long), typeof(byte[]), typeof(bool), typeof(char), typeof(string), typeof(string), typeof(string), typeof(string)
+        //        , typeof(decimal) ,typeof(byte[]) ,typeof(double) ,typeof(string) ,typeof(string) ,typeof(string),typeof(byte[]) ,typeof(int) ,typeof(decimal) ,typeof(string),typeof(string) 
+        //        ,typeof(decimal) ,typeof(string) ,typeof(Single),typeof(byte[]) ,typeof(string) ,typeof(short) ,typeof(decimal) ,typeof(object),typeof(string) ,typeof(string) ,typeof(byte[]) ,typeof(byte) ,typeof(Guid),typeof(byte[]),typeof(string),typeof(string)  };
+
+        private static Type[] CSharpTypes = { typeof(long), typeof(byte[]), typeof(bool), typeof(char), typeof(DateTime), typeof(DateTime), typeof(DateTime), typeof(DateTimeOffset)
+                , typeof(decimal) ,typeof(byte[]) ,typeof(double) ,typeof(string) ,typeof(string) ,typeof(string),typeof(byte[]) ,typeof(int) ,typeof(decimal) ,typeof(string),typeof(string)
+                ,typeof(decimal) ,typeof(string) ,typeof(Single),typeof(byte[]) ,typeof(DateTime) ,typeof(short) ,typeof(decimal) ,typeof(object),typeof(string) ,typeof(TimeSpan) ,typeof(byte[]) ,typeof(byte) ,typeof(Guid),typeof(byte[]),typeof(string),typeof(string)  };
+
+        public static Type ConvertSqlServerFormatToCSharp(string typeName)
+        {
+            var index = Array.IndexOf(SqlServerTypes, typeName);
+
+            return index > -1
+                ? CSharpTypes[index]
+                : typeof(string);
+        }
+
+        public string ConvertCSharpFormatToSqlServer(string typeName)
+        {
+            var index = Array.IndexOf(CSharpTypes, typeName);
+
+            return index > -1
+                ? SqlServerTypes[index]
+                : null;
+        }
+
+        public static JsonResponse SentEndEmail(string HostMail,string Port, string Subject, string Body, string email, string FromMail, List<string> MailCC, string DisplayFromMail, string PathFile=null, string PathFile2=null,string[] FilePath=null)
+        {
+            var jsonReturn = new JsonResponse();
+            try
+            {
+                using (System.Net.Mail.MailMessage Mail = new System.Net.Mail.MailMessage())
+                {
+                    Mail.To.Add(email);
+                    Mail.From = new MailAddress(FromMail, DisplayFromMail);
+                    if (MailCC != null)
+                    {
+                        foreach (var cc in MailCC)
+                        {
+                            MailAddress copy = new MailAddress(cc);
+                            //MailAddress copy = new MailAddress(cc, "Pink");
+                            Mail.CC.Add(copy);
+                        }
+                    }
+
+
+                    Mail.BodyEncoding = System.Text.Encoding.UTF8;
+                    Mail.Subject = Subject;
+                    Mail.Body = Body;
+                    Mail.IsBodyHtml = true;
+                    Mail.Priority = MailPriority.High;
+                    var filename = PathFile;
+                    if (filename != null)
+                    {
+                        Mail.Attachments.Add(new Attachment(filename));
+                    }
+                    var filename2 = PathFile2;
+                    if (filename2 != null)
+                    {
+                        Mail.Attachments.Add(new Attachment(filename2));
+                    }
+
+                    foreach(var r in FilePath)
+                    {
+                        if (r != null)
+                        {
+                            Mail.Attachments.Add(new Attachment(r));
+                        }
+                    }
+
+                    Mail.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = HostMail;
+                    smtp.Port = Convert.ToInt32(Port);
+                    smtp.Send(Mail);
+
+                }
+
+                jsonReturn = new JsonResponse { status = true, message = "ok", data = null };
+
+            }
+            catch (Exception ex)
+            {
+                string err = ex.InnerException?.Message ?? ex.Message;
+                Log.Error(MethodBase.GetCurrentMethod().Name + " Error -> " + err);
+                jsonReturn = new JsonResponse { status = false, message = err };
+            }
+
+            return jsonReturn;
+
+
+        }
+
     }
     public class JsonResponse
     {

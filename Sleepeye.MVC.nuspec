@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Sleepeye.MVC</id>
-    <version>1.0.0.2</version>
+    <version>1.0.0.3</version>
     <title>Sleepeye.MVC</title>
     <authors>Sleepeye</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
