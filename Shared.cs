@@ -13,20 +13,38 @@ namespace Sleepeye.MVC
 {
     public class Shared
     {
-        public static string EnryptString(string strEncrypted)
+        /// <summary>
+        /// Convert String to  Base64 
+        /// </summary>
+        /// <param name="strEncrypted"></param>
+        /// <returns></returns>
+        public static string EnryptBase64String(string strEncrypted)
         {
             // return strEncrypted;
             byte[] b = ASCIIEncoding.UTF8.GetBytes(strEncrypted);
             string encryptedPassword = Convert.ToBase64String(b);
             return encryptedPassword;
         }
-        public static string DecryptString(string encrString)
+
+        /// <summary>
+        /// Convert Base64 to String
+        /// </summary>
+        /// <param name="encrString"></param>
+        /// <returns></returns>
+        public static string DecryptBase64String(string encrString)
         {
             // return encrString;
             byte[] b = Convert.FromBase64String(encrString);
             string decryptedPassword = ASCIIEncoding.UTF8.GetString(b);
             return decryptedPassword;
         }
+
+        /// <summary>
+        /// Encript and Password string
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static string Encrypt(string key, string data)
         {
             string encData = null;
@@ -42,6 +60,12 @@ namespace Sleepeye.MVC
             return encData;
         }
 
+        /// <summary>
+        /// Decrypt and Password string
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static string Decrypt(string key, string data)
         {
             string decData = null;
@@ -154,7 +178,13 @@ namespace Sleepeye.MVC
         //        var Bytes = binaryReader.ReadBytes(Files.ContentLength);
         //    }
         //}
-
+        /// <summary>
+        /// แปลงตัวเลขเป็นตัวอักษรไทย 
+        /// </summary>
+        /// <param name="strNumber"></param>
+        /// <param name="IsTrillion"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string ThaiBahtText(string strNumber, bool IsTrillion = false)
         {
             string BahtText = "";
@@ -253,6 +283,12 @@ namespace Sleepeye.MVC
             return BahtText;
         }
 
+        /// <summary>
+        /// แปลงตัวเลขเป็น ตัวเลขไทย
+        /// </summary>
+        /// <param name="strNumber"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static string NumberThaiBaht(string strNumber)
         {
             string BahtText = "";
@@ -348,34 +384,22 @@ namespace Sleepeye.MVC
             return BahtText;
         }
 
-        private static string[] SqlServerTypes = { "bigint", "binary", "bit", "char", "date", "datetime", "datetime2", "datetimeoffset", "decimal", "filestream", "float", "geography", "geometry", "hierarchyid", "image", "int", "money", "nchar", "ntext", "numeric", "nvarchar", "real", "rowversion", "smalldatetime", "smallint", "smallmoney", "sql_variant", "text", "time", "timestamp", "tinyint", "uniqueidentifier", "varbinary", "varchar", "xml" };
-        //private static Type[] CSharpTypes = { typeof(long), typeof(byte[]), typeof(bool), typeof(char), typeof(string), typeof(string), typeof(string), typeof(string)
-        //        , typeof(decimal) ,typeof(byte[]) ,typeof(double) ,typeof(string) ,typeof(string) ,typeof(string),typeof(byte[]) ,typeof(int) ,typeof(decimal) ,typeof(string),typeof(string) 
-        //        ,typeof(decimal) ,typeof(string) ,typeof(Single),typeof(byte[]) ,typeof(string) ,typeof(short) ,typeof(decimal) ,typeof(object),typeof(string) ,typeof(string) ,typeof(byte[]) ,typeof(byte) ,typeof(Guid),typeof(byte[]),typeof(string),typeof(string)  };
-
-        private static Type[] CSharpTypes = { typeof(long), typeof(byte[]), typeof(bool), typeof(char), typeof(DateTime), typeof(DateTime), typeof(DateTime), typeof(DateTimeOffset)
-                , typeof(decimal) ,typeof(byte[]) ,typeof(double) ,typeof(string) ,typeof(string) ,typeof(string),typeof(byte[]) ,typeof(int) ,typeof(decimal) ,typeof(string),typeof(string)
-                ,typeof(decimal) ,typeof(string) ,typeof(Single),typeof(byte[]) ,typeof(DateTime) ,typeof(short) ,typeof(decimal) ,typeof(object),typeof(string) ,typeof(TimeSpan) ,typeof(byte[]) ,typeof(byte) ,typeof(Guid),typeof(byte[]),typeof(string),typeof(string)  };
-
-        public static Type ConvertSqlServerFormatToCSharp(string typeName)
-        {
-            var index = Array.IndexOf(SqlServerTypes, typeName);
-
-            return index > -1
-                ? CSharpTypes[index]
-                : typeof(string);
-        }
-
-        public string ConvertCSharpFormatToSqlServer(string typeName)
-        {
-            var index = Array.IndexOf(CSharpTypes, typeName);
-
-            return index > -1
-                ? SqlServerTypes[index]
-                : null;
-        }
-
-        public static JsonResponse SentEndEmail(string HostMail,string Port, string Subject, string Body, string email, string FromMail, List<string> MailCC, string DisplayFromMail, string PathFile=null, string PathFile2=null,string[] FilePath=null)
+        /// <summary>
+        /// SentEmail
+        /// </summary>
+        /// <param name="HostMail"></param>
+        /// <param name="Port"></param>
+        /// <param name="Subject"></param>
+        /// <param name="Body"></param>
+        /// <param name="email"></param>
+        /// <param name="FromMail"></param>
+        /// <param name="MailCC"></param>
+        /// <param name="DisplayFromMail"></param>
+        /// <param name="PathFile"></param>
+        /// <param name="PathFile2"></param>
+        /// <param name="FilePath"></param>
+        /// <returns></returns>
+        public static JsonResponse SentEmail(string HostMail,string Port, string Subject, string Body, string email, string FromMail, List<string> MailCC, string DisplayFromMail, string PathFile=null, string PathFile2=null,string[] FilePath=null)
         {
             var jsonReturn = new JsonResponse();
             try
